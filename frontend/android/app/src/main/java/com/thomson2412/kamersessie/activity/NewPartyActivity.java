@@ -29,6 +29,7 @@ import java.util.Set;
 
 import com.thomson2412.kamersessie.R;
 import com.thomson2412.kamersessie.adapter.RecycleAdapter;
+import com.thomson2412.kamersessie.dataObject.Constans;
 import com.thomson2412.kamersessie.database.DBconnector;
 
 public class NewPartyActivity extends AppCompatActivity implements View.OnClickListener{
@@ -146,12 +147,12 @@ public class NewPartyActivity extends AppCompatActivity implements View.OnClickL
 
         @Override
         protected String doInBackground(Activity... params) {
-            JSONObject response = null;
+            JSONObject response;
             String lCRUsername = "";
             String rUsername = "";
             int rId = -1;
             try {
-                response = new DBconnector().postUrlResponse("http://83.82.207.48/kamersessie/login.php", "username=" + mUsername);
+                response = new DBconnector().postUrlResponse(Constans.SERVERURL + "login.php", "username=" + mUsername);
             } catch (IOException e){
                 e.printStackTrace();
                 return "";
@@ -206,7 +207,7 @@ public class NewPartyActivity extends AppCompatActivity implements View.OnClickL
 
         @Override
         protected Boolean doInBackground(Activity... params) {
-            JSONObject response = null;
+            JSONObject response;
             String result = "";
             String id = Integer.toString(prefs.getInt("userId" , -1));
             addedIDS.add(id);
@@ -219,7 +220,7 @@ public class NewPartyActivity extends AppCompatActivity implements View.OnClickL
             allUserIDS += arrayListIDS.get(addedIDS.size() - 1);
             try {
                 response = new DBconnector().postUrlResponse(
-                        "http://83.82.207.48/kamersessie/createparty.php",
+                        Constans.SERVERURL + "createparty.php",
                         "partyname="+mPartyname+"&partyAdmin="+mAdminID+"&userIDS="+allUserIDS
                 );
             } catch (IOException e){

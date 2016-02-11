@@ -23,6 +23,7 @@ import java.io.IOException;
 import com.thomson2412.kamersessie.R;
 import com.thomson2412.kamersessie.dataObject.PartyData;
 import com.thomson2412.kamersessie.database.DBconnector;
+import com.thomson2412.kamersessie.dataObject.Constans;
 
 public class NewSessionActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -39,10 +40,10 @@ public class NewSessionActivity extends AppCompatActivity implements View.OnClic
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(R.string.title_activity_new_session);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.title_activity_new_session);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         Button cS = (Button) findViewById(R.id.create_session);
         cS.setOnClickListener(this);
 
@@ -114,7 +115,7 @@ public class NewSessionActivity extends AppCompatActivity implements View.OnClic
                 long epoch = System.currentTimeMillis() / 1000;
                 if(partyId > 0) {
                     response = new DBconnector().postUrlResponse(
-                            "http://83.82.207.48/kamersessie/createsession.php",
+                            Constans.SERVERURL + "createsession.php",
                             "sessionname=" + sessionname + "&startTime=" + epoch + "&location=" + location +
                                     "&partyId=" + partyId + "&userId=" + userId
                     );
