@@ -52,7 +52,7 @@ public class CheckNewSessionService extends Service {
         HandlerThread thread = new HandlerThread("MyHandlerThread");
         thread.start();
         handler = new Handler(thread.getLooper());
-        handler.postDelayed(runnable, CHECKTIME);
+        handler.post(runnable);
     }
 
     private Runnable runnable = new Runnable() {
@@ -159,6 +159,7 @@ public class CheckNewSessionService extends Service {
 
         Notification notification = mBuilder.build();
         notification.defaults |= Notification.DEFAULT_ALL;
+        notification.flags |= Notification.FLAG_AUTO_CANCEL | Notification.FLAG_SHOW_LIGHTS;
         mNotificationManager.notify(NOTIFICATION_ID, notification);
     }
 
