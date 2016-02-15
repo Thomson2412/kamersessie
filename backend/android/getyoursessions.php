@@ -1,5 +1,6 @@
 <?php 
 
+	$EXPIRETIME = 2 * 60 * 60;
     #Ensure that the client has provided a value for "username" 
     if (isset($_POST["userId"]) && $_POST["userId"] != ""){ 
          
@@ -18,9 +19,9 @@
 
         #Escape special characters to avoid SQL injection attacks 
         $userId = mysqli_real_escape_string($con, $userId); 
-         
+        $time = time() - $EXPIRETIME; 
         #Query the database to get the user details. 
-        $userdetails = mysqli_query($con, "SELECT * FROM user, userhasparty, party, partyhasactivesession, activesession WHERE user.userId = activesession.createdByUserId AND party.partyId = userhasparty.partyid AND userhasparty.partyId = partyhasactivesession.partyId AND activesession.sessionId = partyhasactivesession.sessionId AND userhasparty.userId = '$userId' AND createdByUserId <> '$userId'"); 
+        $userdetails = mysqli_query($con, "SELECT * FROM user, userhasparty, party, partyhasactivesession, activesession WHERE user.userId = activesession.createdByUserId AND party.partyId = userhasparty.partyid AND userhasparty.partyId = partyhasactivesession.partyId AND activesession.sessionId = partyhasactivesession.sessionId AND userhasparty.userId = '$userId' AND createdByUserId <> '$userId' AND activesession.startTime > '$time'"); 
 
         #If no data was returned, check for any SQL errors 
         if (!$userdetails) { 
