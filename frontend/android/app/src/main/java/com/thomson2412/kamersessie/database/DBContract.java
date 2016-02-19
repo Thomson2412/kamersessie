@@ -18,10 +18,9 @@ public final class DBContract {
         public static final String COLUMN_NAME_DATE = "date";
     }
 
-    public static abstract class GroupEntry implements BaseColumns {
-        public static final String TABLE_NAME = "group";
+    public static abstract class User implements BaseColumns {
+        public static final String TABLE_NAME = "user";
         public static final String COLUMN_NAME_USERNAME = "username";
-        public static final String COLUMN_NAME_HIGHSCORE = "highscore";
-        public static final String COLUMN_NAME_DATE = "date";
+        public static final String COLUMN_NAME_USER_ID = "userid";
     }
 }
